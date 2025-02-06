@@ -1,0 +1,40 @@
+@startuml
+
+package "Profiling" as pkg1 {
+class "Base Profile" as bp
+class "Derived Profile" as dp
+bp -down-> dp : derive by adding constraints
+}
+
+package "Option 1" as pkg2 {
+class "Profile" as p2
+class "Actor" as a2
+class "Obligation" as o2
+p2 -right- a2
+a2 -right- o2
+}
+
+package "Option 2" as pkg3 {
+class "Profile" as p1
+class "Obligation" as o1
+class "Actor" as a1
+p1 -right- o1
+o1 -right- a1
+}
+
+package "Option 3" as pkg4 {
+class "Data Req." as dr3
+class "Profile" as p3
+class "Functional Req." as fr3
+class "Actor" as a3
+dr3 -right- p3
+p3 -right- fr3
+fr3 -right- a3
+}
+
+
+pkg2 -[hidden]down- pkg3
+pkg2 -[hidden]left- pkg1
+pkg3 -[hidden]down- pkg4
+
+@enduml

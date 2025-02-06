@@ -1,0 +1,73 @@
+@startmindmap
+
+skinparam svgDimensionStyle false
+
+title Some Thoughts to begin with
+
++[#fdd] some thoughts
+--[#fbb] general
+--- verb
+----_ SHALL
+----_ SHOULD
+----_ MAY
+----_ SHOULDNOT
+----_ SHALLNOT
+--- data expectation
+----_ expected
+----_ unexpected
+-----_ other-details
+-----_ more-details
+-----_ more-structures
+-----_ data-absent-reason
+--- modification
+----_ unaltered
+-----_ exact
+----_ modified
+-----_ assocation
+-----_ equivalent
+-----_ translate
+------_ semantically
+------_ clinically	 
+-----_ reference	
+-----_ truncated
+--- cardinality
+---- min
+---- max
+
+++[#fbb] sender
++++[#bfb] activity
+++++ send=populate
+++++ extend
++++++_ more-details
++++++_ more-structures
++++++_ data-absent-reason
++++ source
+++++_ ui
+++++_ storage
++++++_ archive
+++++_ constant
+
+++[#fbb] router
++++[#bfb] activity
+++++ response
+++++ forward
+++++ data expectation
+++++ modification
+
+++[#fbb] receiver
++++[#bfb] activity
+++++ response
++++++_ return-error
++++++_ no-error
+++++ process
+++++ data expectation
+++++ modification
+
+
++++ target
+++++_ storage
++++++_ archive
+++++_ ui
+++++_ printer
+
+@endmindmap

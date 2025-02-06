@@ -1,0 +1,16 @@
+@startuml
+
+class "Current Obligation Extension" {
+
+    code[1..*]: code 
+    elementId[0..*]: string
+    actor[0..*]: Reference ActorDefinition
+    documentation[0..1]: markdown
+    usage[0..*]: UsageContext
+    filter[0..1]: string
+    filterDocumentation[0..1]: markdown
+    process[0..*]: Rerference OperationDefinition
+}
+
+
+@enduml

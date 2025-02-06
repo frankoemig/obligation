@@ -1,0 +1,33 @@
+@startuml 
+
+title "many:one Pairing"
+
+actor "Source 1" as Foo1
+actor "Source 2" as Foo2
+actor "Source 3" as Foo3
+actor "Collector" as Foo4
+
+database "DB" as Foo5
+
+
+== Data Submission ==
+
+Foo1 -> Foo4: submit data
+activate Foo4 #FFBBBB
+Foo4 -> Foo5: store data
+Foo4 --> Foo1: response
+deactivate Foo4
+
+Foo2 -> Foo4: submit data
+activate Foo4 #FFBBBB
+Foo4 -> Foo5: store data
+Foo4 --> Foo2: response
+deactivate Foo4
+
+Foo3 -> Foo4: submit data
+activate Foo4 #FFBBBB
+Foo4 -> Foo5: store data
+Foo4 --> Foo3: response
+deactivate Foo4
+
+@enduml

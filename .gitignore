@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+/fsh-generated
+/input/xfsh
+/input-cache
+/output
+/temp
+/template

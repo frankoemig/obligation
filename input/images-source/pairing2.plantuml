@@ -1,0 +1,56 @@
+@startuml
+
+title "one:one Pairing"
+
+actor "Order Placer" as Foo1
+database "DB Placer" as Foo1a
+actor "Order Filler" as Foo2
+database "DB Filler" as Foo2a
+actor "Filler Engine" as Foo2b
+
+== Create Order ==
+
+Foo1 -> Foo1a : get data
+activate Foo1 #FFBBBB
+activate Foo1a
+Foo1a --> Foo1 : data
+deactivate Foo1a
+Foo1 -> Foo2: send create order
+activate Foo2 #FFBBBB
+Foo2 -> Foo2a: store order
+activate Foo2a
+Foo2a --> Foo2 : return filler id
+deactivate Foo2a
+Foo2 --> Foo1: return filler id
+deactivate Foo2
+Foo1 -> Foo1a :  store filler id
+activate Foo1a
+Foo1a --> Foo1 : response
+deactivate Foo1a
+deactivate Foo1
+
+== Update Order Status ==
+
+Foo2b -> Foo2 : update status
+activate Foo2 #FFBBBB
+Foo2 -> Foo2a : store status
+activate Foo2a
+Foo2a --> Foo2: response
+deactivate Foo2a
+Foo2 -> Foo1 : send status update
+activate Foo1 #FFBBBB
+Foo1 -> Foo1a : store status
+activate Foo1a
+Foo1a --> Foo1 : response
+deactivate Foo1a
+Foo1 --> Foo2 : send response
+deactivate Foo1
+Foo2 -> Foo2a : store process status
+activate Foo2a
+Foo2a --> Foo2 : response
+deactivate Foo2a
+deactivate Foo2
+
+== Send Order Results ==
+
+@enduml

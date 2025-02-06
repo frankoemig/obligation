@@ -1,0 +1,42 @@
+@startuml
+
+title "Receiver Actor"
+
+actor "Originator" as orig
+actor "Receiver" as receiver
+database "parsed data" as data
+actor "Consumer" as consumer
+database "Storage" as db
+
+== Receiving and processing data ==
+
+orig -> receiver : transmit data
+activate receiver #FFBBBB
+
+receiver -> data : parse data
+receiver -> consumer : process data
+activate consumer #FFBBBB
+
+consumer -> consumer : start processing
+activate consumer #FFBBBB
+
+data -> consumer : use data
+db -> consumer  : read data
+consumer -> consumer : modify data
+
+consumer -> db : store data
+deactivate consumer
+
+consumer -> data : provide data
+consumer -> receiver
+deactivate consumer
+
+data -> receiver : prepare response
+
+receiver -> orig : respond
+
+deactivate receiver
+
+== end Processing ==
+
+@enduml

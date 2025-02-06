@@ -1,0 +1,59 @@
+@startuml
+
+skinparam svgDimensionStyle false
+
+package "Option2 Example 2" #ccc {
+
+class Patient #ffd
+class identifier #ffd
+class name #ffd
+class nameAtBirth #ffd
+class legalName #ffd
+class displayName #ffd
+
+name <|-- nameAtBirth
+name <|-- legalName
+name <|-- displayName
+
+class PatientConsumer #dff
+class DemographicsConsumer #dff
+class BraceletPrinter #dff
+
+class DemographicConsumptionObligation1 #fdf {
+    SHALLstoreExactly
+    SHOULDprintEquivalent
+}
+class BraceletPrinterObligation #fdf {
+    SHOULDdisplayEquivalent
+}
+class BraceletPrinterObligation1 #fdf {
+    SHALLprintExactly
+}
+class BraceletPrinterObligation2 #fdf {
+    SHALLprint
+}
+
+PatientConsumer *-up- DemographicsConsumer
+PatientConsumer *-up- BraceletPrinter
+
+DemographicsConsumer *-up-- DemographicConsumptionObligation1
+BraceletPrinter *-up- BraceletPrinterObligation
+
+BraceletPrinterObligation *-up- BraceletPrinterObligation1
+BraceletPrinterObligation *-up- BraceletPrinterObligation2
+
+
+
+Patient *-down- "1..*" identifier
+Patient *-down- "0..*" name
+
+identifier ..down.> DemographicConsumptionObligation1 : points to
+identifier ..down.> BraceletPrinterObligation1 : points to
+legalName .down.> DemographicConsumptionObligation1 : points to
+displayName .down.> DemographicConsumptionObligation1 : points to
+nameAtBirth .down.> DemographicConsumptionObligation1 : points to
+name ..down.> BraceletPrinterObligation2 : points to
+
+}
+
+@enduml

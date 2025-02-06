@@ -1,0 +1,55 @@
+@startuml
+
+title "Routing Actor"
+
+actor "Originator" as orig
+actor "Receiver" as receiver
+database "parsed data" as data
+actor "Processor" as processor
+database "Internal Storage" as db
+actor "Sender" as sender
+actor "Target" as target
+
+== Receiving and processing data ==
+
+orig -> receiver : transmit data
+activate receiver #FFBBBB
+
+receiver -> data : parse data
+activate data
+receiver -> processor : process data
+activate processor #FFBBBB
+
+data -> processor : use data
+db -> processor : read data
+processor -> processor : modify data
+
+processor -> db : store data
+
+processor -> data : provide data
+
+processor -> sender : trigger transmission
+activate sender #ffbbbb
+data -> sender : get data
+
+sender -> target : transmit data
+activate target #fbb
+target -> sender : receive \nimmediate \nresponse
+deactivate target
+
+sender -> processor  : return response
+processor -> data : provide response
+deactivate sender
+
+processor -> receiver : trigger response
+deactivate processor
+
+data -> receiver : prepare response
+deactivate data
+
+receiver -> orig : respond
+deactivate receiver
+
+== end Processing ==
+
+@enduml

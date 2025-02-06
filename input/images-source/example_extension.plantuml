@@ -1,0 +1,44 @@
+@startuml
+
+class AnnotationProfile
+class ConstrainableProfile
+
+class BasePatientProfile 
+Note bottom
+Only contains some constraints,
+and/or annotations!
+end Note
+class PatientSenderProfile
+Note left
+constraints for the sender
+end Note
+class PatientReceiverProfile
+Note right
+constraints for the receiver
+end Note
+
+AnnotationProfile <|-- BasePatientProfile
+ConstrainableProfile <|-- PatientSenderProfile
+ConstrainableProfile <|-- PatientReceiverProfile
+ConstrainableProfile <|-- BasePatientProfile
+
+class PatientSenderObligationProfile
+note bottom
+concrete obligations for the sender
+end note
+
+class PatientReceiverObligationProfile
+Note bottom
+concrete obligations for the receiver
+end Note
+
+BasePatientProfile <.. PatientSenderProfile : constrains
+BasePatientProfile <.. PatientReceiverProfile : constrains
+
+PatientSenderProfile <.. PatientSenderObligationProfile : add obligation(s)
+PatientReceiverProfile <.. PatientReceiverObligationProfile : add obligation(s)
+
+
+
+
+@enduml

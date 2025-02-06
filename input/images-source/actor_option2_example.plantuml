@@ -1,0 +1,67 @@
+@startuml
+
+skinparam svgDimensionStyle false
+
+package "Option2 Example 1" #ccc {
+
+class Patient  #ffd
+class identifier #ffd
+class name #ffd
+class dob #ffd
+class religion #ffd
+class address #ffd
+class maritalStatus #ffd
+
+class PatientConsumer #dff
+class DemographicsConsumer #dff
+class SpiritualAdviserConsumer #dff
+class BraceletPrinter #dff
+
+class DemographicConsumptionObligation1 #fdf {
+    SHALLstoreExactly
+    SHOULDprintEquivalent
+}
+class DemographicConsumptionObligation2 #fdf {
+    SHALLstoreEquivalent
+}
+class DemographicConsumptionObligation3 #fdf {
+    SHOULDstoreEquivalent
+}
+class BraceletPrinterObligation #fdf {
+    SHALLprintEquivalent
+    SHOULDdisplayEquivalent
+}
+class SpiritualAdviserObligation #fdf {
+    SHOULDforwardEquivalent
+}
+
+PatientConsumer *-up- DemographicsConsumer
+PatientConsumer *-up- SpiritualAdviserConsumer
+PatientConsumer *-up- BraceletPrinter
+
+DemographicsConsumer *-up- DemographicConsumptionObligation1
+DemographicsConsumer *-up- DemographicConsumptionObligation2
+DemographicsConsumer *-up- DemographicConsumptionObligation3
+BraceletPrinter *-up- BraceletPrinterObligation
+SpiritualAdviserConsumer *-up- SpiritualAdviserObligation
+
+Patient *-down- "1..*" identifier
+Patient *-down- "0..*" name
+Patient *-down- "0..1" dob
+Patient *-down- "0..1" religion
+Patient *-down- "0..1" address
+Patient *-down- "0..1" maritalStatus
+
+identifier .down.> DemographicConsumptionObligation1 : points to
+identifier .down.> BraceletPrinterObligation : points to
+name .down.> DemographicConsumptionObligation1 : points to
+name .down.> BraceletPrinterObligation : points to
+name .down.> SpiritualAdviserObligation : points to
+dob .down.> DemographicConsumptionObligation1 : points to
+address .down.> DemographicConsumptionObligation2 : points to
+religion .down.> SpiritualAdviserObligation : points to
+maritalStatus .down.> DemographicConsumptionObligation3 : points to
+
+}
+
+@enduml

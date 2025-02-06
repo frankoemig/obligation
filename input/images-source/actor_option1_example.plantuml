@@ -1,0 +1,73 @@
+@startuml
+
+skinparam svgDimensionStyle false
+
+package "Option1 Example" #ccc {
+
+class Patient #ffd
+class identifier #ffd
+class name #ffd
+class dob #ffd
+class religion #ffd
+class address #ffd
+class maritalStatus #ffd
+
+class PatientConsumer #dff
+class DemographicsConsumer #dff
+class DemographicsConsumer1 #dff
+class DemographicsConsumer2 #dff
+class DemographicsConsumer3 #dff
+class SpiritualAdviserConsumer #dff
+class BraceletPrinter #dff
+
+class DemographicConsumptionObligation1 #fdf {
+    SHALLstoreExactly
+    SHOULDprintEquivalent
+}
+class DemographicConsumptionObligation2 #fdf {
+    SHALLstoreEquivalent
+}
+class DemographicConsumptionObligation3 #fdf {
+    SHOULDstoreEquivalent
+}
+class BraceletPrinterObligation #fdf {
+    SHALLprint
+    SHOULDdisplay
+}
+class SpiritualAdviserObligation #fdf {
+    SHOULDforwardEqivalent
+}
+
+PatientConsumer *-up-- DemographicsConsumer
+DemographicsConsumer *-up-- DemographicsConsumer1
+DemographicsConsumer *-up-- DemographicsConsumer2
+DemographicsConsumer *-up-- DemographicsConsumer3
+PatientConsumer *-up-- SpiritualAdviserConsumer
+PatientConsumer *-up-- BraceletPrinter
+
+DemographicsConsumer1 *-down- DemographicConsumptionObligation1
+DemographicsConsumer2 *-down- DemographicConsumptionObligation2
+DemographicsConsumer3 *-down- DemographicConsumptionObligation3
+BraceletPrinter *-down- BraceletPrinterObligation
+SpiritualAdviserConsumer *-down- SpiritualAdviserObligation
+
+Patient *-down- "1..*" identifier
+Patient *-down- "0..*" name
+Patient *-down- "0..1" dob
+Patient *-down- "0..1" religion
+Patient *-down- "0..1" address
+Patient *-down- "0..1" maritalStatus
+
+identifier .down.> DemographicsConsumer1 : points to
+identifier .down.> BraceletPrinter : points to
+name .down.> DemographicsConsumer1 : points to
+name .down.> BraceletPrinter : points to
+name .down.> SpiritualAdviserConsumer : points to
+dob .down.> DemographicsConsumer1 : points to
+address .down.> DemographicsConsumer2 : points to
+religion .down.> SpiritualAdviserConsumer : points to
+maritalStatus .down.> DemographicsConsumer3 : points to
+
+}
+
+@enduml

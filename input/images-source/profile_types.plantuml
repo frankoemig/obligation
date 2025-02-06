@@ -1,0 +1,45 @@
+@startuml
+
+class Profile
+Note right
+base profile type,
+usually the standard itself
+end Note
+
+class AnnotationProfile
+Note bottom
+adds annotations only
+to clarify semantics
+end Note
+class ConstrainableProfile
+Note right
+adds constraints,
+but keeps some optionality
+end Note
+class ImplementableProfile
+Note right
+does not contain optional 
+elements any more,
+but still allows for more constraints
+end Note
+class LanguageProfile
+Note bottom
+adds text/label
+for specific languages
+end Note
+class ObligationProfile
+Note bottom
+adds obligations
+end Note
+
+Profile <|-- AnnotationProfile
+Profile <|-- ConstrainableProfile
+Profile <|-- LanguageProfile
+Profile <|-- ObligationProfile
+ConstrainableProfile <|-- ImplementableProfile
+
+ConstrainableProfile <|-- ConstrainableProfile : recursion
+
+ImplementableProfile <|-- ImplementableProfile : recursion
+
+@enduml

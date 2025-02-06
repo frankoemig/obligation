@@ -1,0 +1,75 @@
+@startuml
+
+package "FHIR R5: Option 1" #ccc  {
+
+class "ActorDefinition" as ad {
+    description
+    purpose
+    type <PERSON|SYSTEM>
+}
+
+class "Requirements" as req {
+    description
+    purpose
+
+}
+
+class "Statement" as s {
+    conformance <SHALL|SHOULD|MAY|SHOULD_NOT>
+    requirement
+}
+
+class "ElementDefinition" as ed {
+    condition
+    mustHaveValue
+    valueAlternatives
+    mustSupport
+    isSummary
+    binding
+}
+
+class "StructureDefinition" as sd {
+
+}
+
+class "Obligation Set" as o {
+    id
+    documentation
+    usage 
+    filter 
+    filterDocumentation
+    process
+}
+
+class "Obligation Details" as o2 {
+    conformance_verb
+    activity
+    dataExpectation
+}
+
+ad <-- ad: derived from
+req <-- req: derived from
+req -right-> ad : actor
+req *-down- "0..*" s
+s <-- s : derived from
+sd *-- "0..*" ed
+o --> ad
+o "0..*" <-- ed : points to
+note on link
+Each element points
+to individual obligations
+by id.
+end note
+
+o *-right- "1..*" o2
+
+sd *.right. o
+note on link
+The obligation is optionally
+contained in the profile.
+end note
+
+}
+
+
+@enduml

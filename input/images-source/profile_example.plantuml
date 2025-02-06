@@ -1,0 +1,39 @@
+@startuml
+
+class Base
+
+package "defined (general) Profile Hierarchy" as pkg1 {
+class Annotation #cfc
+
+Base --> Annotation : adding explanation
+
+class "Constrainable Profile" as cbp1 #ffc
+cbp1 ..> cbp1
+
+
+Annotation --> cbp1 : adding constraints
+
+class "Obligation Profile" as op1 #fcc
+
+cbp1 --> op1 : adding obligations
+op1 .down.> op1: adding obligations
+op1 --> cbp1 : adding constraints
+
+}
+
+package "Profiles in Use" as pkg2 {
+
+class "Actor" as a1
+class "DerivedConstrainableProfile" as dcp1 #ffc
+
+a1 .up.> dcp1 : use specific constraints
+a1 ..> op1 : use obligation profile
+}
+
+pkg1 .[hidden]right. pkg2
+
+cbp1 -right-> dcp1 : adding constraints (+ obligations?)
+op1 -right-> dcp1 : adding constraints (+ obligations?)
+
+
+@enduml

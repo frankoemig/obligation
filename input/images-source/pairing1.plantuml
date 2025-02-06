@@ -1,0 +1,41 @@
+@startuml
+
+title "many:one Pairing"
+
+actor "Source" as Foo1
+
+actor "Manager" as Foo2
+database "DB" as Foo2d
+
+actor "Consumer 1" as Foo3
+database "DB" as Foo3d
+
+actor "Consumer 2" as Foo4
+database "DB" as Foo4d
+
+
+== Broadcasting ==
+
+Foo1 -> Foo2: send Patient Data
+activate Foo1 #FFBBBB
+activate Foo2
+Foo2 -> Foo2d: store Patient data
+Foo2 --> Foo1: return response
+deactivate Foo2
+
+Foo1 -> Foo3: send Patient Data
+activate Foo3
+Foo3 -> Foo3d: store Patient data
+Foo3 --> Foo1: return response
+deactivate Foo3
+
+Foo1 -> Foo4: send Patient Data
+activate Foo4
+Foo4 -> Foo4d: store Patient data
+Foo4 --> Foo1: return response
+deactivate Foo4
+deactivate Foo1
+
+== end Broadcasting ==
+
+@enduml

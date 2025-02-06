@@ -1,0 +1,27 @@
+@startuml
+
+package "Option1" #ccc {
+
+class Element #ffd
+class Item #ffd
+class Actor #dff
+note top
+[[StructureDefinition-OwnActor1Definition.html OwnActor1Definition]]
+end note
+class Obligation #fdf
+note right
+[[StructureDefinition-Obligation1Definition.html Obligation1Definition]]
+end note
+
+Actor <|-- "0..*" Actor : inherits
+Actor *-- "0..*" Actor : contains/incldues
+
+Element *-- "1..*" Item
+
+Item .right.> Actor : points to
+
+Actor *-down- "0..*" Obligation
+
+}
+
+@enduml

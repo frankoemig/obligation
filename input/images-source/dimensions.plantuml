@@ -1,0 +1,46 @@
+@startmindmap
+
+skinparam svgDimensionStyle false
+
+title Dimensions for Managing Obligations (to be considered in proposed Codesystem
+
++ **Obligation**\n**Dimensions**
+--[#ff8] definitional
+---[#fcc] Negation
+---[#fcc] Actor (Direction)
+---[#fcc] Actor Type
+----_ transport
+----_ content
+---[#fcc] Functional Type
+---[#fcc] Device
+---[#fcc] Media
+---[#fcc] Element Level
+---[#fcc] Testable
+----_ by machine
+----_ by human \ninspection
+
+++[#ff8] codes for \nprecoordination
++++[#ffb] Conformance Verb
+++++_ SHALL
+++++_ SHOULD
+++++_ MAY
+++++_ SHOULDNOT
+++++_ SHALLNOT
++++[#ffb] Activities\n(aka Base \nObligation)
+++++[#ffb] Functional \nRequirements
++++++_ for transport
+++++++_ as sender
+++++++_ as receiver
+++++++_ (as responder ??)
+++++++_ (as forwarder/\nrouter ??)
++++++_ for content
+++++++_ as producer
+++++++_ as consumer
++++++_ other ??
+++++[#ffb] Data Management
+++++[#ffb] Data Requirement/Expectation
+
+++[#ff8] (precoordinated) \ncodes \nfor use
++++[#bfb] **Combined Obligations**\n(for value sets\nand use)
+
+@endmindmap

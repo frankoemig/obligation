@@ -1,0 +1,190 @@
+@startuml
+
+Note as n1
+This model belongs to FHIR r5 as of 2023.
+(It is incomplete and only contains some exmample classes beyond the basic ones.)
+end note
+
+class Base 
+class Element {
+    id
+}
+class DataType #fdd
+class PrimitiveDataType  #fdd {
+    value: string
+}
+class ComplexDataType #fdd
+class BackboneType #fdd
+class Resource {
+    id: string
+    implicitRule: string
+    language: string
+    validate()
+    meta()
+    meta_add()
+    meta_delete()
+}
+class Meta {
+    versionId: string
+    lastUpdated: Date
+    profile: string
+    security: string
+    tag: string
+}
+class BackboneElement
+class Extension {
+    url: uri
+    value: string
+}
+
+class DomainResource {
+    text: string
+}
+
+Base <|-- Element
+Element <|-- DataType
+DataType <|-- PrimitiveDataType
+DataType <|-- ComplexDataType
+DataType <|-- BackboneType
+Base <|-- Resource
+Element <|-- Meta
+Element <|-- BackboneElement
+Element <|-- Extension
+
+Element *-- "0..*" Extension #red
+BackboneElement *-- "0..*" Extension #red: modifierExtension 
+BackboneType *-- "0..*" Extension #red: modifierExtension
+
+Resource <|-- DomainResource
+Resource *-- "0..1" Meta: hasMeta
+Resource <|-- Bundle
+
+DomainResource *-- "0..*" Resource:  contained
+DomainResource *-- "0..*" Extension: modifierExtension
+
+class Bundle {
+    identifier
+    type
+    timestamp
+    signature: string
+}
+
+package "Content for GraphDefinitions" #ff9 {
+
+class Encounter #lightyellow {
+    identifier: string
+    status: string
+    everything()
+}
+class Patient #lightyellow {
+    identifier: string
+    name: string
+    telecom: string
+    gender: string
+    everything()
+
+}
+class Observation #lightyellow {
+    identifier
+    code
+    value
+}
+class Procedure #lightyellow {
+    identifier
+    code
+}
+
+}
+
+Bundle *-- "0..*" BackboneElement: link
+
+DomainResource <|-- Patient
+DomainResource <|-- Encounter
+DomainResource <|-- Observation
+DomainResource <|-- Procedure
+
+Observation --> Patient: subject >
+Observation --> Encounter: encounter >
+Procedure --> Patient: subject >
+Procedure --> Encounter: encounter >
+
+Encounter --> "0..1" Patient
+
+ComplexDataType --> "0..*" PrimitiveDataType: use
+
+package "Content for Technical Resources" #bfb {
+
+class CanonicalResource {
+    url: url
+    identifier: identifier
+    version: string
+    versionAlgorithm
+    name
+    title
+    status
+    experimental
+    publisher
+    contact
+    description 
+    useContext
+    jurisdiction
+    purpose
+    coypright
+    copyrightLabel   
+}
+class MetadataResource << interface >> {
+    approvalDate
+    lastReviewDate
+}
+
+class CodeSystem #dfd {
+    concept
+}
+class ValueSet #dfd {
+    compose
+    expand
+}
+
+}
+
+DomainResource <|-- CanonicalResource
+CanonicalResource <|-- CodeSystem
+CanonicalResource <|-- ValueSet
+
+
+class boolean #fdd
+class base64Binary #fdd
+class time #fdd
+class string #fdd
+
+PrimitiveDataType <|-- boolean
+PrimitiveDataType <|-- base64Binary
+PrimitiveDataType <|-- time
+PrimitiveDataType <|-- string
+
+class Coding #fdd {
+    system: string
+    version: string
+    code: string
+    display: string
+    userSelected: string
+}
+    
+class Ratio #fdd {
+    numerator: double
+    denominator: double
+}
+class Quantity #fdd {
+    value: string
+    comparator: string
+    unit: string
+    system: string
+    code: string
+}
+
+ComplexDataType *-- "0..*" ComplexDataType: has
+ComplexDataType <|-- Coding
+ComplexDataType <|-- Ratio
+ComplexDataType <|-- Quantity
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+
+actor "Submitter A" as Foo1a
+actor "Submitter B" as Foo1b
+actor "Collector" as Foo2
+database "Actor C" as Foo3
+queue "Actor D" as Foo4
+
+
+== Registration ==
+
+Foo1a -> Foo2: register Patient
+activate Foo1a
+activate Foo2 #FFBBBB
+Foo2 -> Foo2: map identifier
+Foo2 -> Foo3: store Patient data
+Foo2 -> Foo4: print data
+Foo2 -> Foo1a: return response
+deactivate Foo2 
+deactivate Foo1a
+
+== Registration ==
+
+Foo1b -> Foo2: register Patient
+activate Foo1b
+activate Foo2 #FFBBBB
+Foo2 -> Foo2: map identifier
+Foo2 -> Foo3: store Patient data
+Foo2 -> Foo4: print data
+Foo2 -> Foo1b: return response
+deactivate Foo2
+deactivate Foo1b
+
+== Diagnosis ==
+
+Foo1a -> Foo2: submit diagnosis
+activate Foo1a
+activate Foo2 #FFBBBB
+Foo2 -> Foo3: store diagnosis
+Foo2 -> Foo1a: return response
+deactivate Foo2
+deactivate Foo1a
+
+== Diagnosis ==
+
+Foo1b -> Foo2: submit diagnosis
+activate Foo1b
+activate Foo2 #FFBBBB
+Foo2 -> Foo3: store diagnosis
+Foo2 -> Foo1b: return response
+deactivate Foo2
+deactivate Foo1b
+
+@enduml

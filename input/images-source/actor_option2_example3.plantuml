@@ -1,0 +1,85 @@
+@startuml
+
+skinparam svgDimensionStyle false
+
+package "Option2 Example 3" #ccc {
+
+note as N1 #fff
+several names are grouped to simplify references to obligations
+end note
+
+class Patient #ffd
+class identifier #ffd
+class name #ffd
+class currentName #ffd
+class nameAtBirth #ffd
+class legalName #ffd
+class displayName #ffd
+class family #ffd
+class given #ffd
+class givenFirst #ffd
+class givenSecond #ffd
+
+name <|--- "0..1" nameAtBirth
+name <|-- "1..*" currentName
+currentName <|-- "1..1" legalName
+currentName <|-- "0..1" displayName
+currentName *-- family
+currentName *-- given
+given <|-- givenFirst
+given <|-- givenSecond
+
+class PatientConsumer #dff
+class DemographicsConsumer #dff
+class BraceletPrinter #dff
+
+class DemographicConsumptionObligation1 #fdf {
+    SHALLstoreExactly
+    SHOULDprintEquivalent
+}
+class BraceletPrinterObligation1 #fdf {
+    SHALLprintExactly
+}
+class BraceletPrinterObligation2 #fdf {
+    SHALLprintModify
+}
+class BraceletPrinterObligation3 #fdf {
+    SHALLprintTruncate
+}
+class BraceletPrinterObligation4 #fdf {
+    SHOULDdisplayExact
+}
+class BraceletPrinterObligation5 #fdf {
+    SHOULDdisplayTruncate
+}
+
+PatientConsumer *-up- DemographicsConsumer
+PatientConsumer *-up- BraceletPrinter
+
+DemographicsConsumer *-up-- DemographicConsumptionObligation1
+
+BraceletPrinter *-up- BraceletPrinterObligation1
+BraceletPrinter *-up- BraceletPrinterObligation2
+BraceletPrinter *-up- BraceletPrinterObligation4
+BraceletPrinter *-up- BraceletPrinterObligation5
+BraceletPrinterObligation2 <|-- BraceletPrinterObligation3
+
+
+Patient *-down- "1..*" identifier
+Patient *-down- "0..*" name
+
+identifier ..down.> DemographicConsumptionObligation1 : points to
+identifier ..down.> BraceletPrinterObligation1 : points to
+family ..down.> BraceletPrinterObligation1 : points to
+family ..down.> BraceletPrinterObligation4 : points to
+givenFirst ..down.> BraceletPrinterObligation1 : points to
+givenSecond ..down.> BraceletPrinterObligation3 : points to
+legalName .down.> DemographicConsumptionObligation1 : points to
+displayName .down.> DemographicConsumptionObligation1 : points to
+nameAtBirth .down.> DemographicConsumptionObligation1 : points to
+given ..down.> BraceletPrinterObligation2 : points to
+given ..down.> BraceletPrinterObligation5 : points to
+
+}
+
+@enduml

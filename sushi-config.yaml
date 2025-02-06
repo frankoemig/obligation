@@ -1,0 +1,81 @@
+# ╭──────────────────────────────────────ImplementationGuide───────────────────────────────────────╮
+# │  The properties below are used to create the ImplementationGuide resource. For a list of       │
+# │  supported properties, see: https://fshschool.org/docs/sushi/configuration/                    │
+# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+# wenn id mit hl7 beginnt, dann funktioniert usage-stats-opt-out nicht
+id: hl7.v2.uv.obligation
+canonical: http://v2.hl7.org/fhir
+name: ObligationIG
+title: "Obligation Discussion"
+status: draft
+version: 0.4.1
+fhirVersion: 5.0.0
+copyrightYear: 2023+
+releaseLabel: Working Draft to present the Concept Ideas and Background Details (FO)
+
+dependencies:
+#  hl7.fhir.r4.core: 4.0.1
+  hl7.fhir.uv.tools: 0.1.0
+#  acme.base.r4:
+#    uri: https://simplifier.net/guide/acmebaseprojectr4implementationguide
+#    version: 4.0.3
+
+# http://build.fhir.org/ig/FHIR/fhir-tools-ig/branches/master/CodeSystem-ig-parameters.html
+# see https://confluence.hl7.org/display/FHIR/Implementation+Guide+Parameters
+parameters:
+  usage-stats-opt-out: true
+  apply-version: false
+
+# exampleCanonical must start with canonical from above
+
+groups:
+  GroupA:
+    name: Definition 1 for Obligations
+    description: This is the 1st definition for Obligations.
+    resources:
+    - StructureDefinition/Obligation1Definition
+    - StructureDefinition/ABasePatientPatient
+    - StructureDefinition/APatientSenderProfile
+  GroupB:
+    name: Definition 2 (as an alternative) for Obligations
+    description: This is a 2nd definition (as an alternative) for Obligations.
+    resources:
+    - StructureDefinition/Obligation2Definition
+
+pages:
+  index.md:
+    title: Home
+  actor.md:
+    title: Actor
+  actor_obligations.md:
+    title: Actor Obligations
+  profiles.md:
+    title: Profiles
+  codesystems.md:
+    title: Codesystems
+  pairing.md:
+    title: Pairing
+  examples.md:
+    title: Examples
+  ip_statement.md:
+    title: IP-Statement
+  dependencies_globals.md:
+    title: Dependencies and Globals  
+  cross-version-analysis.md:
+    title: Cross Version Analysis
+       
+       
+# ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
+# │  To use a provided input/includes/menu.xml file, delete the "menu" property below.             │
+# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+menu:
+  Home: index.html
+  Content:
+    Profiles: profiles.html
+    Examples: examples.html
+    Pairing: pairing.html
+    Actor: actor.html
+    Actor Obligations: actor_obligations.html
+  Codesystems: codesystems.html
+  Artifacts: artifacts.html  

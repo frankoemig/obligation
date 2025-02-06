@@ -1,0 +1,25 @@
+@startuml
+
+class Resource
+class ConstrainableBaseProfile
+class ObligationProfile #fcc
+class Obligation {
+    code[]: code 
+    elementId[]
+    actor[]
+    documentation
+    usage[]: UsageContext
+    filter: string
+    filterDocumentation: markdown
+    process[]: operationDefinition
+}
+
+class ObligationFlag
+
+Resource <-- ConstrainableBaseProfile : base, adding constraints
+ConstrainableBaseProfile <-- ConstrainableBaseProfile : base, adding constraints
+ConstrainableBaseProfile <-- ObligationProfile : base, adding obligations only
+ObligationProfile *-right- "1..1" ObligationFlag : mark as obligation profile
+ObligationProfile *-down- "1..*" Obligation: dedicated obligations
+
+@enduml
