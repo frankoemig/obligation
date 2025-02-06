@@ -3,14 +3,14 @@
 # │  supported properties, see: https://fshschool.org/docs/sushi/configuration/                    │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 # wenn id mit hl7 beginnt, dann funktioniert usage-stats-opt-out nicht
-id: hl7.v2.uv.obligation
-canonical: http://v2.hl7.org/fhir
+id: obligation
+canonical: http://obligation.oemig.de/fhir
 name: ObligationIG
 title: "Obligation Discussion"
 status: draft
-version: 0.4.1
+version: 0.5.0
 fhirVersion: 5.0.0
-copyrightYear: 2023+
+copyrightYear: 2025+
 releaseLabel: Working Draft to present the Concept Ideas and Background Details (FO)
 
 dependencies:
